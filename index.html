@@ -64,37 +64,37 @@ h1 {
             <button type="submit">Keresés</button>
         </form>
         <div class="video-list" id="videoList">
-            <!-- Ide kerülnek majd a videók -->
+            
         </div>
     </div>
 
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
-        // Az API betöltése
+        
         gapi.load("client", start);
 
-        // API inicializálása
+        
         function start() {
             gapi.client.init({
-                apiKey: 'AIzaSyA9PoB2HogDjvDid653W13DvPe3KAne0nA', // Helyettesítsd az API-kulcsoddal
+                apiKey: 'apikey', 
                 discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest"],
             }).then(function() {
-                // Sikeres inicializáció esetén lekérjük a videókat
-                getVideos('music'); // Alapértelmezett keresési kifejezés
+                
+                getVideos('music'); 
             }, function(error) {
                 console.error("Hiba az API inicializálásakor: ", error);
             });
         }
 
-        // Videók lekérdezése
+       
         function getVideos(searchQuery) {
             gapi.client.youtube.search.list({
                 part: 'snippet',
                 q: searchQuery,
-                maxResults: 100 // Legfeljebb 100 videó
+                maxResults: 100 
             }).then(function(response) {
                 var videoList = document.getElementById("videoList");
-                videoList.innerHTML = ''; // Előző videók törlése
+                videoList.innerHTML = ''; 
                 response.result.items.forEach(function(item) {
                     var videoItem = document.createElement("div");
                     videoItem.classList.add("video");
@@ -115,14 +115,14 @@ h1 {
             });
         }
 
-        // Videó lejátszása
+       
         function playVideo(videoId) {
             window.open('https://www.youtube.com/watch?v=' + videoId, '_blank');
         }
 
-        // Kereső űrlap eseménykezelő
+        
         document.getElementById("searchForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Az alapértelmezett űrlapkezelés megakadályozása
+            event.preventDefault(); 
             var searchQuery = document.getElementById("searchInput").value;
             getVideos(searchQuery);
         });
